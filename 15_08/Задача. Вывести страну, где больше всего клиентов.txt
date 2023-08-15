@@ -1,0 +1,13 @@
+Задача. Вывести страну, где больше всего клиентов (проекция: страна, ко_во_клиентов)
+```sql
+SELECT
+	Country,
+	COUNT(*) AS total_customers
+FROM Customers
+
+GROUP BY Country
+
+ORDER BY total_customers DESC
+LIMIT 1
+-- LIMIT 1 OFFSET 1 -- вывести, кто на втором месте
+```
