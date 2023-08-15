@@ -1,0 +1,15 @@
+**Задача. Вывести компанию, которая находится на третьем месте по количеству доставленных заказов**
+
+(проекция: `название_перевозчика`, `ко_во_заказов`)
+
+SELECT
+		Shippers.ShipperName,
+    COUNT(*) AS total_orders
+FROM Orders
+
+JOIN Shippers ON Orders.ShipperID=Shippers.ShipperID
+
+GROUP BY Shippers.ShipperID
+
+ORDER BY total_orders DESC
+LIMIT 1 OFFSET 2
