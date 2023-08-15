@@ -1,0 +1,10 @@
+SELECT
+		OrderDetails.OrderID,
+    SUM(OrderDetails.Quantity * Products.Price) AS order_cost
+FROM OrderDetails
+
+JOIN Products ON OrderDetails.ProductID=Products.ProductID
+
+GROUP BY OrderDetails.OrderID
+
+ORDER BY order_cost DESC
