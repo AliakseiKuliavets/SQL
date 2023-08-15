@@ -1,0 +1,84 @@
+1.Найти мин/стоимость товаров для каждой категории
+-------------------------------------------------------
+
+SELECT 
+*
+FROM Products
+JOIN Categories ON Products.CategoryID=Categories.CategoryID
+JOIN Suppliers ON Products.SupplierID=Suppliers.SupplierID
+	GROUP BY Products.CategoryID
+ORDER BY Min(Price) DESC
+
+------------------------------------------------------------
+2.Вывести ТОП-3 стран по количеству доставленных заказов
+------------------------------------------------------------
+
+SELECT
+	Country,
+	COUNT(*) AS total_orders
+FROM Customers
+JOIN Orders ON Customers.CustomerID=Orders.CustomerID
+GROUP BY Country
+
+ORDER BY total_orders DESC
+LIMIT 3
+
+-----------------------------------------------------------
+3. Вывести названия категорий, в которых более 10 товаров
+-----------------------------------------------------------
+
+SELECT
+	Categories.CategoryName,
+	COUNT(*) AS quantity_more_10
+FROM Categories
+JOIN Products ON Categories.CategoryID=Products.CategoryID
+GROUP BY Categories.CategoryID
+HAVING
+	quantity_more_10 >= 10
+
+ORDER BY quantity_more_10 DESC
+
+------------------------------------------------------------
+4. Очистить тел/номер поставщикам из USA
+------------------------------------------------------------
+
+UPDATE Suppliers
+SET phone = NULL
+WHERE Country = 'USA';
+--------------------------
+SELECT
+ * 
+FROM Suppliers
+
+-----------------------------------------------------------------------------------------
+5.Вывести имена и фамилии (и ко-во заказов) менеджеров, у которых ко-во заказов менее 15
+-------------------------------------------------------------------------------------------
+
+SELECT
+ Employees.FirstName,
+ Employees.LastName,
+ COUNT(*) AS order_have
+FROM Employees
+JOIN Orders ON Employees.EmployeeID=Orders.EmployeeID
+
+GROUP BY Orders.EmployeeID
+HAVING
+	order_have < 15
+
+ORDER BY order_have DESC
+
+--------------------------------------------------------------------
+6.Вывести товар, который находится на втором месте по ко-ву заказов
+--------------------------------------------------------------------
+
+SELECT
+ Products.ProductName,
+ COUNT(*) AS name_second_position_order
+FROM Products
+JOIN OrderDetails ON Products.ProductID=OrderDetails.ProductID
+GROUP BY OrderDetails.ProductID
+ORDER BY name_second_position_order DESC
+LIMIT 1 OFFSET 2
+
+
+
