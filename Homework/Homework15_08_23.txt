@@ -5,7 +5,6 @@ SELECT
 *
 FROM Products
 JOIN Categories ON Products.CategoryID=Categories.CategoryID
-JOIN Suppliers ON Products.SupplierID=Suppliers.SupplierID
 	GROUP BY Products.CategoryID
 ORDER BY Min(Price) DESC
 
